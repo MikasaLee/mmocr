@@ -1,0 +1,30 @@
+Name: 'SCUT-HCCDoc_Dataset'
+Paper:
+  Title: SCUT-HCCDoc: A New Benchmark Dataset of Handwritten Chinese Text in Unconstrained Camera-captured Documents
+  URL: https://pdf.sciencedirectassets.com/272206/1-s2.0-S0031320320X00094/1-s2.0-S0031320320303629/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjECoaCXVzLWVhc3QtMSJHMEUCIQD9DpTBU7elD2wQ%2BHJ0eKPc4dd8pMCI6oPncdj7wIgmDgIgQ0haISLCKe0nqRDbzmyC7EvWkFZHRtBQdN91M7Ld3%2FUquwUI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgwwNTkwMDM1NDY4NjUiDHBpOw7gH1nlu4GhnSqPBVaJhfUXJXRr%2FHkj4fn9nKQgfW5P3CTNIkhGQrYlLXhbwFKe60w%2FPgYI1ITFNsaxmQ%2Fhsx3CaUH7W5e%2BHCC2l3xb9pFCT%2FFLtyHp4t2VwiiBjnZh8BXzCPGCFCYo22l4DRI2nnDTgldx1HHirvcU7cVtG0YwXi42yLZKsXi8Fv6peIr%2FOWABFKFT0xcTDbr63MVYoWQog1FfxjFAK3M%2BqxzrUCzjyXSUmI6eMTCVf2ooYKDj5Uncy8%2FL1svBpMUjL2KPteL1RlgSFX5bbaIGJULOExkw3nqhlzeO9dFah2NeEi4Z2A%2BWfZ6ZdY4ZKu5ROmp%2B%2FDvtXS9YnhwNdU9XBIj03zzucn3enzJBE4zSpue3pBj1M8KxOFB7kIsHYboyFyA9j1%2BYAWzC%2FmrzbI8S9NHr9V9lAZ8Te%2FwhyD71I%2FPxuxUT9mqQRb11rgXUQLkE9Bzoh8UEiTNGD4H5alaC2Igzvd6EuQ4bs2BtbbITGSfHpw1EnKA76Ckl%2Fi6FupJKf2oTnEIdbm%2BlnpRt5DRkuMviQw3XifdGJYnfaWwlJZ05PLCZQflhdLYsr6iCClkzygdTXA6BcM6av98Lr%2Bez71ITEpniRJN3lliRGp9UN%2BTEBmOi34fwldGT40SR1Bo6RHvh9nVcNUExeDOudnN5Yl6vKcxGswjrUi0y1zBHr7vxRn6vy68nXl%2FAh%2F%2Fpjq7x%2B62yj9IlFoMVpEnKdzF2yfjH%2BSTxmOuGgof9mIHdRd2%2Bx5Ev0aiWzABgvakq3Mw4pCdKI9KG3cMFfbqH1GRBgclHtcIG%2BXiSW3TM9uupPQp1dEqbHNMBMzwQP%2F97W5PGQslSYUELyqm8NLN%2FPtKwOdIxFLnJlTrJkNReLDfB3%2Fww2eijrQY6sQExDaeADtySZJZ96lAB3qIrdxMeRQuxifdHEg6fXrHXxJhObqNsnsJ3n0J5yscPNg0UJiTiSvWWwElLb4jD%2BKJGfRsUME30lTkwFziyvkP%2FqtfpInQ8aUJwUx01hVI02Zj4Aa31QVM0%2Fait%2BuFwitr4fEPssq3z%2Fl2jioL1fbreYtldl5xPlRj674PcnykiPlTPwSq7UG%2Fm%2BtxVGfrMfbvP7T9v0glU8EHFzoCFU1ZCkCw%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240118T112209Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY5IGHS5EV%2F20240118%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=2894ef4816ed533f81de04aba6d3cc407b41874079978b20b08a275f63df9943&hash=1804bccee5433a98501a532ab66a677d2ee8eec4ef1cf971326992ba55b22ace&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0031320320303629&tid=spdf-14387eb0-e619-4f96-b2e5-bae6f4d43da3&sid=043fec846e759640ff3bcc921d872c65cde7gxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=10135954505050545207&rr=8476755e7f00f5b7&cc=jp
+  Venue: SCUT
+  Year: '2020'
+  BibTeX: '@article{zhang2020scut,
+  title={SCUT-HCCDoc: A New Benchmark Dataset of Handwritten Chinese Text in Unconstrained Camera-captured Documents},
+  author={Zhang, Hesuo and Liang, Lingyu and Jin, Lianwen},
+  journal={Pattern Recognition},
+  pages={107559},
+  year={2020},
+  publisher={Elsevier}
+}'
+Data:
+  Website: https://github.com/HCIILAB/SCUT-HCCDoc_Dataset_Release
+  Language:
+    - Chinese
+  Scene:
+    - offline handwritten Chinese text recognition 
+  Granularity:
+    - Word
+  Tasks:
+    - textdet
+    - textrecog
+    - textspotting
+  License:
+    Type: CC BY 4.0
+    Link: https://creativecommons.org/licenses/by/4.0/
+  Format: .json
