@@ -1,5 +1,4 @@
-# icdar2015_textspotting_data_root = 'data/icdar2015'
-icdar2015_textspotting_data_root = '/lirunrui/mmocr/data/icdar2015/'
+icdar2015_textspotting_data_root = 'data/icdar2015'
 
 icdar2015_textspotting_train = dict(
     type='OCRDataset',

@@ -75,7 +75,7 @@ env_cfg = dict(
     dist_cfg=dict(backend='nccl'),
     mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
 launcher = 'none'
-load_from = 'work_dirs/nrtr_modality-transform_scut_hccdoc_20240416/best_SCUT_HccDoc_recog_AR_epoch_46.pth'
+load_from = 'work_dirs/nrtr_modality-transform_scut_hccdoc_20240416/best_SCUT_HccDoc_recog_AR_epoch_87.pth'
 log_level = 'INFO'
 log_processor = dict(by_epoch=True, type='LogProcessor', window_size=10)
 lr = 1
