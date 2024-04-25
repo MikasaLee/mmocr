@@ -193,7 +193,7 @@ class ParallelSARDecoder(BaseDecoder):
         Args:
             feat (Tensor): Tensor of shape :math:`(N, D_i, H, W)`.
             out_enc (Tensor): Encoder output of shape
-                :math:`(N, D_m, H, W)`.
+                :math:`(N, D_m, H, W)`. # 这个应该是写错了，尺寸是(N,D_m)
             data_samples (list[TextRecogDataSample]): Batch of
                 TextRecogDataSample, containing gt_text and valid_ratio
                 information.
