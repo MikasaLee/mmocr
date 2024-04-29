@@ -40,8 +40,8 @@ default_hooks = dict(
 )
 
 train_dataloader = dict(
-    batch_size=8,  # 原本是64，小一点。
-    num_workers=32,
+    batch_size=16,  # 原本是64，小一点。
+    num_workers=64,
     persistent_workers=True,
     pin_memory=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -49,7 +49,7 @@ train_dataloader = dict(
 
 val_dataloader = dict(
     batch_size=32,
-    num_workers=16,
+    num_workers=32,
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,

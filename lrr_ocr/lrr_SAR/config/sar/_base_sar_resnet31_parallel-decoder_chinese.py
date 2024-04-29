@@ -13,7 +13,8 @@ model = dict(
         type='TextRecogDataPreprocessor',
         mean=[127, 127, 127],
         std=[127, 127, 127]),
-    backbone=dict(type='ResNet31OCR'),
+    # backbone=dict(type='ResNet31OCR'),
+    backbone=dict(type='ResNet31OCR',stage4_pool_cfg=dict(kernel_size=(2, 4), stride=(2, 4) )),   # 序列长度由w/4 -> w/16
     encoder=dict(
         type='SAREncoder',
         enc_bi_rnn=False,
@@ -55,7 +56,7 @@ train_pipeline = [
         min_width=128,
         max_width=2304,
         width_divisor=16),
-    # dict(type='PadToWidth', width=2304),
+    dict(type='PadToWidth', width=2304), # 可以用了
     dict(
         type='PackTextRecogInputs',
         meta_keys=('img_path', 'ori_shape', 'img_shape', 'valid_ratio'))
@@ -79,7 +80,7 @@ test_pipeline = [
         min_width=128,
         max_width=2304,
         width_divisor=16),
-    # dict(type='PadToWidth', width=2304),
+    dict(type='PadToWidth', width=2304),
 
     # add loading annotation after ``Resize`` because ground truth
     # does not need to do resize data transform
