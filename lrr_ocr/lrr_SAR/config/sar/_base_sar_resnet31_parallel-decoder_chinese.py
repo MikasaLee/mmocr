@@ -53,7 +53,7 @@ train_pipeline = [
         type='RescaleToHeight',
         height=128,
         min_width=128,
-        max_width=None,
+        max_width=2304,
         width_divisor=16),
     # dict(type='PadToWidth', width=2304),
     dict(
@@ -77,7 +77,7 @@ test_pipeline = [
         type='RescaleToHeight',
         height=128,
         min_width=128,
-        max_width=None,
+        max_width=2304,
         width_divisor=16),
     # dict(type='PadToWidth', width=2304),
 
