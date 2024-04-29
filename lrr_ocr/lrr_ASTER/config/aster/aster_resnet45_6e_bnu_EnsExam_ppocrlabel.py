@@ -1,7 +1,7 @@
 # training schedule for 1x
 _base_ = [
-    # '_base_aster.py',
-    '_base2_aster.py',
+    '_base_aster.py',
+    # '_base2_aster.py',
     '../_base_/datasets/scut_hccdoc.py',
     '../_base_/datasets/CASIA_HWDB_chineseocr_data.py',
     '../_base_/datasets/CASIA_HWDB_official_2x_data.py',

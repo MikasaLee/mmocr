@@ -141,5 +141,5 @@ class ResNet31OCR(BaseModule):
 
         if self.out_indices is not None:
             return tuple(outs[i] for i in self.out_indices)
-
+        # print("after backbone,x.shape:",x.shape)
         return x

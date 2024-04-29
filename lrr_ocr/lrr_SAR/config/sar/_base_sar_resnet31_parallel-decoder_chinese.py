@@ -38,13 +38,24 @@ model = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile', ignore_empty=True, min_size=2),
     dict(type='LoadOCRAnnotations', with_text=True),
-    dict(
+    
+    # # 第一次run
+    # dict(
+    #     type='RescaleToHeight',
+    #     height=48,
+    #     min_width=48,
+    #     max_width=160,
+    #     width_divisor=4),
+    # dict(type='PadToWidth', width=160),
+
+    # 第二次run
+    dict(      # # 第二次run
         type='RescaleToHeight',
-        height=48,
-        min_width=48,
-        max_width=160,
-        width_divisor=4),
-    dict(type='PadToWidth', width=160),
+        height=128,
+        min_width=128,
+        max_width=None,
+        width_divisor=16),
+    # dict(type='PadToWidth', width=2304),
     dict(
         type='PackTextRecogInputs',
         meta_keys=('img_path', 'ori_shape', 'img_shape', 'valid_ratio'))
@@ -52,13 +63,24 @@ train_pipeline = [
 
 test_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(
+
+    # # 第一次run
+    # dict(
+    #     type='RescaleToHeight',
+    #     height=48,
+    #     min_width=48,
+    #     max_width=160,
+    #     width_divisor=4),
+    # dict(type='PadToWidth', width=160),
+
+    dict(      # # 第二次run
         type='RescaleToHeight',
-        height=48,
-        min_width=48,
-        max_width=160,
-        width_divisor=4),
-    dict(type='PadToWidth', width=160),
+        height=128,
+        min_width=128,
+        max_width=None,
+        width_divisor=16),
+    # dict(type='PadToWidth', width=2304),
+
     # add loading annotation after ``Resize`` because ground truth
     # does not need to do resize data transform
     dict(type='LoadOCRAnnotations', with_text=True),

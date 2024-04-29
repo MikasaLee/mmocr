@@ -83,6 +83,8 @@ class ScutHccdocBackbone(BaseModule):
         #     # print(x.shape)
         #     x = cnn_layer(x)
         # output = x
+        
+        # print("after backbone Shape is:",output.shape)
         return output
 
 if __name__ == '__main__':

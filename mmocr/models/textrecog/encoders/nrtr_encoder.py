@@ -102,7 +102,7 @@ class NRTREncoder(BaseEncoder):
         n, c, h, w = feat.size()
 
         feat = feat.view(n, c, h * w).permute(0, 2, 1).contiguous()
-
+        # print("after backbone,shape: ",feat.shape)
         valid_ratios = []
         for data_sample in data_samples:
             valid_ratios.append(data_sample.get('valid_ratio'))

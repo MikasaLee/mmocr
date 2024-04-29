@@ -29,7 +29,7 @@ test_dataset = dict(
     type='ConcatDataset', datasets=test_list, pipeline=_base_.test_pipeline)
 
 default_hooks = dict(
-    logger=dict(type='LoggerHook', interval=100),
+    logger=dict(type='LoggerHook', interval=1000), # 原本是100，但是batch_size设小的话那这个就输出的太多了。
     checkpoint=dict(type='CheckpointHook',
                     interval=1,
                     by_epoch=True, 
@@ -40,7 +40,7 @@ default_hooks = dict(
 )
 
 train_dataloader = dict(
-    batch_size=64,
+    batch_size=2,  # 原本是64，小一点。
     num_workers=32,
     persistent_workers=True,
     pin_memory=True,
@@ -71,7 +71,7 @@ val_evaluator = dict(
 
 test_evaluator = val_evaluator
 
-auto_scale_lr = dict(base_batch_size=64)
+auto_scale_lr = dict(base_batch_size=32)
 
 env_cfg = dict(
     cudnn_benchmark=True,

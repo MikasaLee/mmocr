@@ -39,5 +39,6 @@ class ASTEREncoder(BaseEncoder):
         assert feat.dim() == 4
         assert feat.size(2) == 1, 'height must be 1'
         feat = feat.squeeze(2).permute(0, 2, 1)
+        # print("after backbone shape:",feat.shape)
         feat, _ = self.bilstm(feat)
         return feat.contiguous()
