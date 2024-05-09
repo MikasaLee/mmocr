@@ -29,7 +29,7 @@ test_dataset = dict(
     type='ConcatDataset', datasets=test_list, pipeline=_base_.test_pipeline)
 
 default_hooks = dict(
-    logger=dict(type='LoggerHook', interval=1000), # 原本是100，但是batch_size设小的话那这个就输出的太多了。
+    logger=dict(type='LoggerHook', interval=500), # 原本是100，但是batch_size设小的话那这个就输出的太多了。
     checkpoint=dict(type='CheckpointHook',
                     interval=1,
                     by_epoch=True, 
@@ -40,8 +40,8 @@ default_hooks = dict(
 )
 
 train_dataloader = dict(
-    batch_size=16,  # 原本是64，小一点。
-    num_workers=64,
+    batch_size=26,  # 原本是64，小一点。
+    num_workers=32,
     persistent_workers=True,
     pin_memory=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -49,7 +49,7 @@ train_dataloader = dict(
 
 val_dataloader = dict(
     batch_size=32,
-    num_workers=32,
+    num_workers=16,  # 改回来16
     persistent_workers=True,
     pin_memory=True,
     drop_last=False,
@@ -99,4 +99,3 @@ warnings.filterwarnings("ignore")
 _base_.visualizer.vis_backends = [
     dict(type='LocalVisBackend'),
     dict(type='TensorboardVisBackend'),]
-
