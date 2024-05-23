@@ -366,9 +366,6 @@ def main():
     # print('after postprocessor,outputs info:',outputs_post) 
     
     visualize_att(results['inputs'].detach().numpy()[0], outputs_post[0].pred_text.item,atten_weights,output_dir)
-    
-    
-    pass
 
 if __name__ == '__main__':
     main()

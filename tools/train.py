@@ -10,10 +10,6 @@ from mmengine.logging import print_log
 from mmengine.registry import RUNNERS
 from mmengine.runner import Runner
 
-# 这两行是我加的，修改多线程的tensor方式为file_system
-import torch
-torch.multiprocessing.set_sharing_strategy('file_system')
-
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a model')
     parser.add_argument('config', help='Train config file path')
