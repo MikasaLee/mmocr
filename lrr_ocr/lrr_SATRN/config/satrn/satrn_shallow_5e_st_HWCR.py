@@ -39,7 +39,7 @@ default_hooks = dict(
 )
 
 train_dataloader = dict(
-    batch_size=64,  # 原本是64，小一点。
+    batch_size=16,  # 原本是64，小一点。
     num_workers=32,
     persistent_workers=True,
     pin_memory=True,

@@ -17,7 +17,7 @@ model = dict(
         d_k=512 // 8,
         d_v=512 // 8,
         d_model=512,
-        n_position=100,
+        n_position=144,  # 第一次run是100
         d_inner=512 * 4,
         dropout=0.1),
     decoder=dict(
@@ -42,7 +42,14 @@ model = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile', ignore_empty=True, min_size=2),
     dict(type='LoadOCRAnnotations', with_text=True),
-    dict(type='Resize', scale=(100, 32), keep_ratio=False),
+    # dict(type='Resize', scale=(100, 32), keep_ratio=False),   #第一次run
+    dict(      # # 第二次run
+        type='RescaleToHeight',
+        height=32,
+        min_width=32,
+        max_width=576,
+        width_divisor=4),
+    dict(type='PadToWidth', width=576),
     dict(
         type='PackTextRecogInputs',
         meta_keys=('img_path', 'ori_shape', 'img_shape', 'valid_ratio'))
@@ -50,7 +57,14 @@ train_pipeline = [
 
 test_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(type='Resize', scale=(100, 32), keep_ratio=False),
+    # dict(type='Resize', scale=(100, 32), keep_ratio=False),
+    dict(      # # 第二次run
+        type='RescaleToHeight',
+        height=32,
+        min_width=32,
+        max_width=576,
+        width_divisor=4),
+    dict(type='PadToWidth', width=576),
     # add loading annotation after ``Resize`` because ground truth
     # does not need to do resize data transform
     dict(type='LoadOCRAnnotations', with_text=True),
