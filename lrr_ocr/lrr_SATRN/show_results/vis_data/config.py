@@ -69,30 +69,31 @@ env_cfg = dict(
     dist_cfg=dict(backend='nccl'),
     mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
 launcher = 'none'
-load_from = 'work_dirs/sar_resnet31_HWCR_20240425/best_bnu_EnsExam_ppocrlabel_recog_AR_epoch_15.pth'
+load_from = 'work_dirs/SATRN_HWCR_0525/best_bnu_EnsExam_ppocrlabel_recog_AR_epoch_60.pth'
 log_level = 'INFO'
 log_processor = dict(by_epoch=True, type='LogProcessor', window_size=10)
 lr = 1
 max_epochs = 100
 model = dict(
-    backbone=dict(type='ResNet31OCR'),
+    backbone=dict(hidden_dim=512, input_channels=3, type='ShallowCNN'),
     data_preprocessor=dict(
         mean=[
-            127,
-            127,
-            127,
+            123.675,
+            116.28,
+            103.53,
         ],
         std=[
-            127,
-            127,
-            127,
+            58.395,
+            57.12,
+            57.375,
         ],
         type='TextRecogDataPreprocessor'),
     decoder=dict(
-        d_k=512,
-        dec_bi_rnn=False,
-        dec_do_rnn=0,
-        dec_gru=False,
+        d_embedding=512,
+        d_inner=2048,
+        d_k=64,
+        d_model=512,
+        d_v=64,
         dictionary=dict(
             dict_file='/lirunrui/mmocr/dicts/chinese_english_digits.txt',
             same_start_end=True,
@@ -101,17 +102,24 @@ model = dict(
             with_padding=True,
             with_start=True,
             with_unknown=True),
-        enc_bi_rnn=False,
-        max_seq_len=30,
+        max_seq_len=25,
         module_loss=dict(
-            ignore_first_char=True, reduction='mean', type='CEModuleLoss'),
+            flatten=True, ignore_first_char=True, type='CEModuleLoss'),
+        n_head=8,
+        n_layers=6,
         postprocessor=dict(type='AttentionPostprocessor'),
-        pred_concat=True,
-        pred_dropout=0.1,
-        type='ParallelSARDecoder'),
+        type='NRTRDecoder'),
     encoder=dict(
-        enc_bi_rnn=False, enc_do_rnn=0.1, enc_gru=False, type='SAREncoder'),
-    type='SARNet')
+        d_inner=2048,
+        d_k=64,
+        d_model=512,
+        d_v=64,
+        dropout=0.1,
+        n_head=8,
+        n_layers=12,
+        n_position=144,
+        type='SATRNEncoder'),
+    type='SATRN')
 optim_wrapper = dict(
     optimizer=dict(eps=1e-05, lr=1, type='Adadelta'), type='OptimWrapper')
 param_scheduler = [
@@ -164,12 +172,12 @@ test_dataloader = dict(
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(
-                height=48,
-                max_width=160,
-                min_width=48,
+                height=32,
+                max_width=576,
+                min_width=32,
                 type='RescaleToHeight',
                 width_divisor=4),
-            dict(type='PadToWidth', width=160),
+            dict(type='PadToWidth', width=576),
             dict(type='LoadOCRAnnotations', with_text=True),
             dict(
                 meta_keys=(
@@ -210,12 +218,12 @@ test_dataset = dict(
     pipeline=[
         dict(type='LoadImageFromFile'),
         dict(
-            height=48,
-            max_width=160,
-            min_width=48,
+            height=32,
+            max_width=576,
+            min_width=32,
             type='RescaleToHeight',
             width_divisor=4),
-        dict(type='PadToWidth', width=160),
+        dict(type='PadToWidth', width=576),
         dict(type='LoadOCRAnnotations', with_text=True),
         dict(
             meta_keys=(
@@ -261,12 +269,12 @@ test_list = [
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
-        height=48,
-        max_width=160,
-        min_width=48,
+        height=32,
+        max_width=576,
+        min_width=32,
         type='RescaleToHeight',
         width_divisor=4),
-    dict(type='PadToWidth', width=160),
+    dict(type='PadToWidth', width=576),
     dict(type='LoadOCRAnnotations', with_text=True),
     dict(
         meta_keys=(
@@ -279,7 +287,7 @@ test_pipeline = [
 ]
 train_cfg = dict(max_epochs=100, type='EpochBasedTrainLoop', val_interval=1)
 train_dataloader = dict(
-    batch_size=8,
+    batch_size=32,
     dataset=dict(
         datasets=[
             dict(
@@ -310,12 +318,12 @@ train_dataloader = dict(
             dict(ignore_empty=True, min_size=2, type='LoadImageFromFile'),
             dict(type='LoadOCRAnnotations', with_text=True),
             dict(
-                height=48,
-                max_width=160,
-                min_width=48,
+                height=32,
+                max_width=576,
+                min_width=32,
                 type='RescaleToHeight',
                 width_divisor=4),
-            dict(type='PadToWidth', width=160),
+            dict(type='PadToWidth', width=576),
             dict(
                 meta_keys=(
                     'img_path',
@@ -357,12 +365,12 @@ train_dataset = dict(
         dict(ignore_empty=True, min_size=2, type='LoadImageFromFile'),
         dict(type='LoadOCRAnnotations', with_text=True),
         dict(
-            height=48,
-            max_width=160,
-            min_width=48,
+            height=32,
+            max_width=576,
+            min_width=32,
             type='RescaleToHeight',
             width_divisor=4),
-        dict(type='PadToWidth', width=160),
+        dict(type='PadToWidth', width=576),
         dict(
             meta_keys=(
                 'img_path',
@@ -399,12 +407,12 @@ train_pipeline = [
     dict(ignore_empty=True, min_size=2, type='LoadImageFromFile'),
     dict(type='LoadOCRAnnotations', with_text=True),
     dict(
-        height=48,
-        max_width=160,
-        min_width=48,
+        height=32,
+        max_width=576,
+        min_width=32,
         type='RescaleToHeight',
         width_divisor=4),
-    dict(type='PadToWidth', width=160),
+    dict(type='PadToWidth', width=576),
     dict(
         meta_keys=(
             'img_path',
@@ -452,15 +460,10 @@ tta_pipeline = [
                     type='ConditionApply'),
             ],
             [
-                dict(
-                    height=48,
-                    max_width=160,
-                    min_width=48,
-                    type='RescaleToHeight',
-                    width_divisor=4),
-            ],
-            [
-                dict(type='PadToWidth', width=160),
+                dict(keep_ratio=False, scale=(
+                    100,
+                    32,
+                ), type='Resize'),
             ],
             [
                 dict(type='LoadOCRAnnotations', with_text=True),
@@ -506,12 +509,12 @@ val_dataloader = dict(
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(
-                height=48,
-                max_width=160,
-                min_width=48,
+                height=32,
+                max_width=576,
+                min_width=32,
                 type='RescaleToHeight',
                 width_divisor=4),
-            dict(type='PadToWidth', width=160),
+            dict(type='PadToWidth', width=576),
             dict(type='LoadOCRAnnotations', with_text=True),
             dict(
                 meta_keys=(
@@ -545,9 +548,9 @@ vis_backends = [
 ]
 visualizer = dict(
     name='visualizer',
-    save_dir='lrr_ocr/lrr_SAR/show_results',
+    save_dir='lrr_ocr/lrr_SATRN/show_results',
     type='TextRecogLocalVisualizer',
     vis_backends=[
         dict(type='LocalVisBackend'),
     ])
-work_dir = './work_dirs/sar_resnet31_parallel-decoder_5e_st_handwritting_chinese_recog'
+work_dir = './work_dirs/satrn_shallow_5e_st_HWCR'
