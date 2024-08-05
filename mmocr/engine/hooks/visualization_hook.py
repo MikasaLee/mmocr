@@ -44,6 +44,7 @@ class VisualizationHook(Hook):
         draw_gt: bool = False,
         wait_time: float = 0.,
         backend_args: Optional[dict] = None,
+        **kwargs,
     ) -> None:
         self._visualizer: Visualizer = Visualizer.get_current_instance()
         self.interval = interval
