@@ -9,4 +9,4 @@
 #CUDA_VISIBLE_DEVICES=0,1 PORT=29503 tools/dist_train.sh lrr_ocr/lrr_SAR/config/sar/sar_resnet31_parallel-decoder_5e_st_handwritting_chinese_recog.py 2 --work-dir work_dirs/sar_resnet31_HWCR_20240427/ --resume 
 #CUDA_VISIBLE_DEVICES=0,1 PORT=29503 tools/dist_train.sh lrr_ocr/lrr_SAR/config/sar/sar_resnet31_parallel-decoder_5e_st_handwritting_chinese_recog.py 2 --work-dir work_dirs/sar_resnet31_HWCR_withNewSize_20240429/ --resume
 #CUDA_VISIBLE_DEVICES=0,1,2 PORT=29503 tools/dist_train.sh lrr_ocr/lrr_SATRN/config/satrn/satrn_shallow_5e_st_HWCR.py 3 --work-dir work_dirs/SATRN_HWCR_0525/ --resume
-CUDA_VISIBLE_DEVICES=0,1 PORT=29503 tools/dist_train.sh lrr_ocr/lrr_SATRN/config/satrn/satrn_shallow_5e_st_HWCR.py 2 --work-dir work_dirs/satrn_HWCR_3rd_20240704 --resume
+CUDA_VISIBLE_DEVICES=0,1,2 PORT=29503 tools/dist_train.sh lrr_ocr/lrr_SATRN/config/satrn/satrn_shallow_5e_st_HWCR.py 3 --work-dir work_dirs/satrn_HWCR_3rd_20240704 --resume

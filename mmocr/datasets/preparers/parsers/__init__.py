@@ -13,6 +13,7 @@ from .synthtext_parser import SynthTextAnnParser
 from .totaltext_parser import TotaltextTextDetAnnParser
 from .wildreceipt_parser import WildreceiptKIEAnnParser
 from .scut_hccdoc_parser import SCUTHCCDocTextDetAnnParser
+from .scut_ept_parser import SCUTEPTTextRecogAnnParser
 from .casia_hwdb_chineseocr_parser import CasiaHwdbChineseOcrTextRecogAnnParser
 from .ppocrlabel_parser import PPOCRLabelTextDetAnnParser
 
@@ -24,4 +25,5 @@ __all__ = [
     'SynthTextAnnParser', 'MJSynthAnnParser', 
     # 下面是我加的
     'SCUTHCCDocTextDetAnnParser', 'CasiaHwdbChineseOcrTextRecogAnnParser','PPOCRLabelTextDetAnnParser',
+    'SCUTEPTTextRecogAnnParser',
 ]

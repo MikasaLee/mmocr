@@ -1,7 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import os.path as osp
 from typing import Dict, List, Tuple
-
+import cv2
+import numpy as np
 import mmcv
 from mmengine import mkdir_or_exist
 
@@ -104,6 +105,7 @@ class TextRecogCropPacker(TextRecogPacker):
                  jitter_ratio_y: float = 0.0,
                  long_edge_pad_ratio: float = 0.0,
                  short_edge_pad_ratio: float = 0.0,
+                 is_crop_or_whiten: bool = False,  # 裁剪还是涂白？ False是裁剪，True是涂白
                  **kwargs):
         super().__init__(**kwargs)
         self.crop_with_warp = crop_with_warp
@@ -112,6 +114,7 @@ class TextRecogCropPacker(TextRecogPacker):
         self.jry = jitter_ratio_y
         self.lepr = long_edge_pad_ratio
         self.sepr = short_edge_pad_ratio
+        self.is_crop_or_whiten = is_crop_or_whiten
         # Crop converter crops the images of textdet to patches
         self.cropped_img_dir = 'textrecog_imgs'
         self.crop_save_path = osp.join(self.data_root, self.cropped_img_dir)
@@ -139,6 +142,17 @@ class TextRecogCropPacker(TextRecogPacker):
                 return instance['poly']
             if 'box' in instance:
                 return bbox2poly(instance['box']).tolist()
+        def get_whiten(image, poly):
+            mask = np.zeros(image.shape[:2], dtype=np.uint8)
+            points = np.array([poly], dtype=np.int32)
+            points = np.reshape(points, (1,-1,2))
+            # print("points:",points)
+            cv2.fillPoly(mask, points, (255))
+            mask = cv2.bitwise_not(mask)
+            result = cv2.bitwise_and(image, image, mask=mask)
+            cv2.bitwise_not(mask, mask)
+            result2 = cv2.bitwise_and(image, image, mask=mask)
+            return result2
 
         data_list = []
         img_path, instances = sample
@@ -148,10 +162,22 @@ class TextRecogCropPacker(TextRecogPacker):
                 continue
             if self.crop_with_warp:
                 poly = get_poly(instance)
-                patch = warp_img(img, poly, self.jitter, self.jrx, self.jry)
+                if self.is_crop_or_whiten == False:
+                    patch = warp_img(img, poly, self.jitter, self.jrx, self.jry)
+                else:
+                    img_copy = img.copy()
+                    img_copy = get_whiten(img_copy,poly)
+                    patch = warp_img(img_copy, poly, self.jitter, self.jrx, self.jry)
             else:
-                box = get_box(instance)
-                patch = crop_img(img, box, self.lepr, self.sepr)
+                if self.is_crop_or_whiten == False:
+                    box = get_box(instance)
+                    patch = crop_img(img, box, self.lepr, self.sepr)
+                else:
+                    box = get_box(instance)
+                    poly = get_poly(instance)
+                    img_copy = img.copy()
+                    img_copy = get_whiten(img_copy,poly)
+                    patch = crop_img(img_copy, box, self.lepr, self.sepr)
             if patch.shape[0] == 0 or patch.shape[1] == 0:
                 continue
             text = instance['text']

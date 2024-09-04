@@ -225,15 +225,21 @@ class STN(BasePreprocessor):
         )
         
         # 原本的
-        self.stn_fc1 = nn.Sequential(
-            nn.Linear(2 * 256, 512), nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True))
+        # self.stn_fc1 = nn.Sequential(
+        #     nn.Linear(2 * 256, 512), nn.BatchNorm1d(512),
+        #     nn.ReLU(inplace=True))
         
         # # 尺寸改为576x128之后，这里第一步的输入就由512变成18432了。
         # self.stn_fc1 = nn.Sequential(
         #     nn.Linear(18432, 4096), nn.BatchNorm1d(4096),nn.ReLU(inplace=True),
         #     nn.Linear(4096, 512), nn.BatchNorm1d(512),nn.ReLU(inplace=True),
         #     )
+        
+        # 尺寸改为576x32之后，这里第一步的输入就由512变成4608了。
+        self.stn_fc1 = nn.Sequential(
+            nn.Linear(4608, 1024), nn.BatchNorm1d(1024),nn.ReLU(inplace=True),
+            nn.Linear(1024, 512), nn.BatchNorm1d(512),nn.ReLU(inplace=True),
+            )
 
         self.stn_fc2 = nn.Linear(512, num_control_points * 2)
         self.init_stn(self.stn_fc2)
