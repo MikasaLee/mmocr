@@ -368,12 +368,17 @@ class MMOCRInferencer(BaseMMOCRInferencer):
         pred_results = [{} for _ in range(len(next(iter(preds.values()))))]
         if 'rec' in self.mode:
             for i, rec_pred in enumerate(preds['rec']):
-                result = dict(rec_texts=[], rec_scores=[])
+                # result = dict(rec_texts=[], rec_scores=[]) # 换成下面那种
+                result = dict()
                 for rec_pred_instance in rec_pred:
                     rec_dict_res = self.textrec_inferencer.pred2dict(
                         rec_pred_instance)
-                    result['rec_texts'].append(rec_dict_res['text'])
-                    result['rec_scores'].append(rec_dict_res['scores'])
+                    # 换成下面那种
+                    # result['rec_texts'].append(rec_dict_res['text'])
+                    # result['rec_scores'].append(rec_dict_res['scores'])
+                    for key in rec_dict_res.keys():
+                        result['rec_'+key] = rec_dict_res[key]
+                
                 pred_results[i].update(result)
         if 'det' in self.mode:
             for i, det_pred in enumerate(preds['det']):

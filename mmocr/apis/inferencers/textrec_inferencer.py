@@ -41,4 +41,7 @@ class TextRecInferencer(BaseMMOCRInferencer):
         result['text'] = data_sample.pred_text.item
         score = self._array2list(data_sample.pred_text.score)
         result['scores'] = float(np.mean(score))
+        # 多点东西
+        result['img_path'] = data_sample.img_path
+        result['char_score'] = score
         return result

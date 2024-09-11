@@ -119,7 +119,6 @@ class VisualizationHook(Hook):
             img_path = output.img_path
             img_bytes = fileio.get(img_path, backend_args=self.backend_args)
             img = mmcv.imfrombytes(img_bytes, channel_order='rgb')
-
             self._visualizer.add_datasample(
                 osp.splitext(osp.basename(img_path))[0],
                 img,

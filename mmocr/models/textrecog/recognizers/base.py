@@ -87,11 +87,12 @@ class BaseRecognizer(BaseModel, metaclass=ABCMeta):
         if mode == 'loss':
             return self.loss(inputs, data_samples, **kwargs)
         elif mode == 'predict':
-        # 在验证阶段加loss
-            loss = self.loss(inputs, data_samples, **kwargs)
+            # 在验证阶段加loss
+            # loss = self.loss(inputs, data_samples, **kwargs)  # 关掉
+            loss = -1  
             pred = self.predict(inputs, data_samples, **kwargs)
             # return self.predict(inputs, data_samples, **kwargs)
-            return pred,loss
+            return pred
         elif mode == 'tensor':
             return self._forward(inputs, data_samples, **kwargs)
         else:
